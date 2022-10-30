@@ -4,7 +4,7 @@ import css from './Button.module.css';
 export class Button extends Component {
 
   loadMoreBtn = () => {
-    this.props.onButton(1);
+    this.props.onButton();
   };
 
   render() {
