@@ -1,4 +1,3 @@
-// import * as basicLightbox from 'basiclightbox';
 import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
 import css from './Modal.module.css';
@@ -15,6 +14,7 @@ export class Modal extends Component {
   }
 
   handleKeyDown = e => {
+    console.log(e.code);
     if (e.code === 'Escape') {
       this.props.onClose();
     }
