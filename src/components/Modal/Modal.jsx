@@ -1,9 +1,34 @@
 // import * as basicLightbox from 'basiclightbox';
-// import React from 'react';
-// import css from './Modal.module.css';
+import React, {Component} from 'react';
+// import {createPortal} from 'react-dom'
+import css from './Modal.module.css';
 
+// const modalRoot = document.querySelector('#modal-root')
 
-// // export class Modal
+export class Modal extends Component {
+
+componentDidMount() {
+  // console.log('didMount');
+  // console.log(this.props.value);
+}
+
+componentWillUnmount() {
+  // console.log('willMount');
+}
+
+render() {
+  const { largeImg, imgTags } = this.props.value;
+  console.log(largeImg);
+  return (
+    <div className={css.overlay}>
+      <div className={css.modal}>
+        <img src={largeImg} alt={imgTags}/>
+      </div>
+    </div>
+  );
+}
+
+}
 
 
 

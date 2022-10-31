@@ -8,7 +8,6 @@ import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { Loader } from './Loader/Loader';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Button } from './Button/Button';
-// import { Modal } from 'components/Modal/Modal';
 
 
 axios.defaults.baseURL = 'https://pixabay.com/api/';
@@ -43,7 +42,7 @@ export class App extends Component {
       Notify.failure('Ups... Щось пішло не так');
     }
   }
-
+  
   handleSearchSubmit = searchText => {
     this.setState({ searchText, page: 1 });
   };
@@ -64,7 +63,6 @@ export class App extends Component {
           </ImageGallery>
         )}
         {images && <Button onButton={this.buttonLoadMore} />}
-        {/* <Modal /> */}
       </div>
     );
   }
