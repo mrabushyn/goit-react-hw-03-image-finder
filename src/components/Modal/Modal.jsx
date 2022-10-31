@@ -1,54 +1,41 @@
 // import * as basicLightbox from 'basiclightbox';
-import React, {Component} from 'react';
-// import {createPortal} from 'react-dom'
+import React, { Component } from 'react';
+import { createPortal } from 'react-dom';
 import css from './Modal.module.css';
 
-// const modalRoot = document.querySelector('#modal-root')
+const modalRoot = document.querySelector('#modal-root');
 
 export class Modal extends Component {
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyDown);
+  }
 
-componentDidMount() {
-  // console.log('didMount');
-  // console.log(this.props.value);
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown = e => {
+    if (e.code === 'Escape') {
+      this.props.onClose();
+    }
+  };
+
+  handleBackDropClick = e => {
+    if (e.target === e.currentTarget) {
+      this.props.onClose();
+    }
+  };
+
+  render() {
+    const { largeImageURL, tags } = this.props.value;
+
+    return createPortal(
+      <div className={css.overlay} onClick={this.handleBackDropClick}>
+        <div className={css.modal}>
+          <img src={largeImageURL} alt={tags} />
+        </div>
+      </div>,
+      modalRoot
+    );
+  }
 }
-
-componentWillUnmount() {
-  // console.log('willMount');
-}
-
-render() {
-  const { largeImg, imgTags } = this.props.value;
-  console.log(largeImg);
-  return (
-    <div className={css.overlay}>
-      <div className={css.modal}>
-        <img src={largeImg} alt={imgTags}/>
-      </div>
-    </div>
-  );
-}
-
-}
-
-
-
-
-
-
-
-
-// export const Modal = largeImage => {
-//   // instance.show()
-//   return 
-//   (const instance = basicLightbox.create(
-//     <div className={css.overlay}>
-//       <div className={css.modal}>
-//         <img src={largeImage} alt="" />
-//       </div>
-//     </div>
-//   ))
-// };
-    
-  
-
-// instance.show(largeImage);

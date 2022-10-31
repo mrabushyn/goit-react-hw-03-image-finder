@@ -5,19 +5,20 @@ import css from './ImageGalleryItem.module.css';
 export class ImageGalleryItem extends Component {
   state = {
     showModal: false,
-    largeImg: '',
-    imgTags: '',
+    largeImageURL: '',
+    tags: '',
   };
 
   toggleModal = evt => {
-    this.setState(state => ({ showModal: !state.showModal }));
-
     const targetId = Number(evt.target.id);
     const imgObj = this.props.value.find(image => image.id === targetId);
-    const largeImg = imgObj.largeImageURL;
-    const imgTags = imgObj.tags;
+    const { largeImageURL, tags } = imgObj;
+    this.setState(state => ({ showModal: true }));
+    this.setState({ largeImageURL, tags });
+  };
 
-    this.setState({ largeImg, imgTags });
+  onCloseModal = () => {
+    this.setState({ showModal: false });
   };
 
   render() {
@@ -26,17 +27,15 @@ export class ImageGalleryItem extends Component {
 
     return (
       <>
-        {showModal && (
-          <Modal value={this.state} />
-        )}
-        {value.map(image => (
-          <li key={image.id} className={css.galleryItem}>
+        {showModal && <Modal value={this.state} onClose={this.onCloseModal} />}
+        {value.map(({ id, webformatURL }) => (
+          <li key={id} className={css.galleryItem}>
             <img
               className={css.imageGalleryItem}
-              src={image.webformatURL}
+              src={webformatURL}
               alt={imgText}
               onClick={this.toggleModal}
-              id={image.id}
+              id={id}
             />
           </li>
         ))}
@@ -44,4 +43,3 @@ export class ImageGalleryItem extends Component {
     );
   }
 }
-
